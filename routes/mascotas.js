@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const petController = require('../controllers/petController');
 const verificarToken = require('../middleware/verificarToken');
-
+const petController = require('../controllers/petController');
 //Crear mascota
-// router.use(verificarToken);
+ router.use(verificarToken);
 
 router.post('/registro',verificarToken, petController.crearMascota);
 router.put('/:id',verificarToken,petController.modificarMascota);

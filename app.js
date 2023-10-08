@@ -2,6 +2,7 @@ const express = require('express');
 const dataBase = require('./dataBase');
 const usuariosRouter = require('./routes/usuarios');
 const mascotasRouter =  require('./routes/mascotas');
+const alertasRouter = require('./routes/alertas');
 require('dotenv').config();
 const app = express();
 const port = 2024;
@@ -22,6 +23,7 @@ app.get('/', (req, res) => {
 })
 app.use('/api/usuarios', usuariosRouter);
 app.use('/api/mascotas', mascotasRouter);
+app.use('/api/alertas', alertasRouter);
 
 app.listen( port, () => {
     console.log('Servidor en el puerto ', port);
