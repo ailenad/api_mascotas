@@ -1,8 +1,8 @@
 const express = require('express');
 const dataBase = require('./dataBase');
 const usuariosRouter = require('./routes/usuarios');
+const mascotasRouter =  require('./routes/mascotas');
 require('dotenv').config();
-const claveSecreta = process.env.SECRET_KEY;
 const app = express();
 const port = 2024;
 
@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
     res.send('<h1>API REST</h1>');
 })
 app.use('/api/usuarios', usuariosRouter);
+app.use('/api/mascotas', mascotasRouter);
 
 app.listen( port, () => {
     console.log('Servidor en el puerto ', port);

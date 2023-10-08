@@ -7,14 +7,13 @@ const petSchema = new Schema ({
     raza: String,
     age:String,
     description:String,
-    password: String,
     created: {
         type: Date,
         default: Date.now 
     } ,
     owner:{
-        type : Schema.Types.ObjectId , ref:'User',
-        ref:User
+        type : Schema.Types.ObjectId , 
+        ref:'User'
     }
 })
 

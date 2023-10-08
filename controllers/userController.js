@@ -1,8 +1,10 @@
 
 const userModel = require('../models/userModel');
 const bcrypt = require('bcrypt');
-
-
+const jwt = require ('jsonwebtoken');
+require('dotenv').config();
+const secretKey = process.env.SECRET_KEY;
+const salt = 10;
 exports.authUser= async(req , res)=>{
     const {email, password}= req.body;
     //verifico que el usuario exista
@@ -18,9 +20,7 @@ exports.authUser= async(req , res)=>{
         res.status(400).json({msg:'Password invalido'})
     }
 
-    //genero el token               //pageload    //clave priv   //expira en una hora
-
-    const token = jwt.sign( {usuario: email}, clave, {expiresIn:'1h'})
+    const token = jwt.sign({ usuario: usuario._id }, secretKey, { expiresIn: '1h' });
     res.status(201).json({
         msg:'Autenticacion ok',
         token
@@ -45,7 +45,7 @@ exports.crear = async( req, res ) => {
       
           // Guarda el usuario en la base de datos
           await newUser.save();
-
+        
           res.status(201).json({ message: 'Usuario registrado exitosamente' });
         } catch (error) {
           console.error('Error al registrar usuario:', error);
