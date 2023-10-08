@@ -9,13 +9,14 @@ function verificarToken(req, res, next) {
   }
     //esto solo en insomnia
     token = token.split( ' ')[1];
-  try {
-    const decoded = jwt.verify(token, secretKey);
-    req.usuario = decoded.usuario;
-    next();
-  } catch (error) {
-    res.status(401).json({ msg: 'Token no válido' });
-  }
+    jwt.verify(token, secretKey, (error, decoded) => {
+      if( error) {
+      return res.status(403).json({ msg: 'Token invalido'})
+      }
+      // Retorno el id del usuario
+      req.usuario = decoded.usuario;
+      next();
+      })
 }
 
 module.exports = verificarToken;
