@@ -2,14 +2,23 @@ const petModel = require("../models/petModel");
 
 exports.crearMascota = async(req, res)=>{
     try{
-      if (!req.body.name || !req.body.raza) {
+      const{name, raza, age, description} = req.body;
+      if (!name || !raza) {
         return res.status(400).json({ msg: 'Los campos name y raza son obligatorios' });
       }
-      if (typeof req.body.age !== 'number') {
+      if (typeof age !== 'number') {
         return res.status(400).json({ msg: 'El campo age debe ser un número' });
       }
-            
-      const mascota = new petModel(req.body);
+      const userId = req.usuario;
+      console.log(userId);
+
+      const mascota = new petModel({
+        name, 
+        raza,
+        age,
+        description,
+        owner: userId,
+      });
       
       await mascota.save();
 

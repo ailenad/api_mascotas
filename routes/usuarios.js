@@ -13,7 +13,7 @@ router.delete('/:id',userController.eliminar);
 // Ruta para listar todos los usuarios
 router.get('/', userController.listar);
 // Ruta para obtener un usuario por su ID
-router.get('/:id', verificarToken ,userController.obtenerUsuario);
+router.get('/:id', userController.obtenerUsuario);
 
 // Otras rutas y controladores relacionados con usuarios
 // Por ejemplo, ruta para iniciar sesión, actualizar perfil, etc.

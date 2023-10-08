@@ -4,14 +4,13 @@ const Alert = require('../models/alertModel');
 exports.crearAlerta = async (req, res) => {
   try {
     const { title, description, pet, status,creator } = req.body;
-
+    const userId = req.usuario;
     const alerta = new Alert({
       title,
       description,
-      creator,
       pet,
       status,
-      creator,
+      creator : userId,
     });
 
     await alerta.save();

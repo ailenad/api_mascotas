@@ -13,7 +13,7 @@ const commentSchema = new Schema({
     },
     alert:{
         type: Schema.Types.ObjectId,
-        ref: 'Alert'// Puede estar relacionada con una mascota
+        ref: 'Alert'// Puede estar relacionada con una alerta
     }
 
 })
