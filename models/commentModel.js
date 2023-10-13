@@ -2,18 +2,21 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
-    content: String,
+    content: {
+        type: String,
+        required: true,
+    },
     created: {
         type: Date,
         default: Date.now
     },
    user: {
         type: Schema.Types.ObjectId,
-        ref: 'User' // Referencia a otra entidad
+        ref: 'User' 
     },
     alert:{
         type: Schema.Types.ObjectId,
-        ref: 'Alert'// Puede estar relacionada con una alerta
+        ref: 'Alert'
     }
 
 })

@@ -14,7 +14,7 @@ exports.authUser= async(req , res)=>{
         res.status(400).json({msg:'El usuario no existe'})
     }
 
-    //COMPARAR LA CONTRASENA retorna un boolean
+    
     const passwordValido = await bcrypt.compare( password, usuario.password );
     if (!passwordValido){
         res.status(400).json({msg:'Password invalido'})
@@ -59,7 +59,7 @@ exports.actualizar = async (req, res)=>{
         const {name, email, password} = req.body;
         //Tengo que saber cual es el usuario que voy a actualizar
         const userId = req.params.id;
-        //los campos que vaya a actualizat
+       
         if(!name && !email & !password){
             res.status(400).json({msg:'Nada que actualizar'})
         }

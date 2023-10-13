@@ -1,12 +1,14 @@
 const Comment = require('../models/commentModel');
 
-// Controlador para crear un comentario
+// crear un comentario
 exports.crearComentario = async (req, res) => {
     try {
         const { content } = req.body;
         const userId = req.usuario; // ID del usuario autenticado
         const alertId = req.params.alertId; // ID de la alerta relacionada
-
+        if(!content){
+            return res.status(400).json({msg: 'Debe ingresar el contenido'});
+        }
         const comentario = new Comment({
             content,
             user: userId,
@@ -37,7 +39,7 @@ exports.actualizarComentario = async (req, res) => {
             return res.status(404).json({ msg: 'Comentario no encontrado' });
         }
 
-        // Verifica si el usuario autenticado es el creador del comentario
+        //  si el usuario autenticado es el creador del comentario
         if (comentario.user.toString() !== req.usuario) {
             return res.status(403).json({ msg: 'No tienes permiso para modificar este comentario' });
         }
@@ -52,7 +54,7 @@ exports.actualizarComentario = async (req, res) => {
     }
 };
 
-// Controlador para eliminar un comentario
+//  eliminar un comentario
 exports.eliminarComentario = async (req, res) => {
     try {
         const commentId = req.params.id; // ID del comentario a eliminar
@@ -63,7 +65,7 @@ exports.eliminarComentario = async (req, res) => {
             return res.status(404).json({ msg: 'Comentario no encontrado' });
         }
 
-        // Verifica si el usuario autenticado es el creador del comentario
+        //  usuario autenticado es el creador del comentario
         if ( comentario.user.toString() !== req.usuario) {
             return res.status(403).json({ msg: 'No tienes permiso para eliminar este comentario' });
         }
@@ -77,12 +79,12 @@ exports.eliminarComentario = async (req, res) => {
     }
 };
 
-// Controlador para listar comentarios relacionados con una alerta
+//  listar comentarios relacionados con una alerta
 exports.getComentarioDeAlerta = async (req, res) => {
     try {
         const alertId = req.params.alertId; // ID de la alerta
 
-        const  comentario = await Comment.find({ alert: alertId }).populate('user', 'name'); // Popula el usuario que creó el comentario con su nombre
+        const  comentario = await Comment.find({ alert: alertId }).populate('user', 'name'); 
 
         res.json( comentario);
     } catch (error) {

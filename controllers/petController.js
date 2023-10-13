@@ -53,7 +53,7 @@ exports.modificarMascota = async (req, res)=>{
 
       //Actualizo los campos que se pasen
       if(name){
-          usuario.name = name;
+          mascota.name = name;
       }
       if(age){
          mascota.age = age;
@@ -80,7 +80,7 @@ exports.eliminarMascota = async (req, res) => {
   try {
     const mascotaId = req.params.id;
 
-    // Verifica si el usuario existe
+    
     const mascota = await petModel.findById(mascotaId);
     if (!mascota) {
       return res.status(404).json({ msg: 'La mascota no existe' });
