@@ -46,7 +46,7 @@ exports.crear = async( req, res ) => {
           // Guarda el usuario en la base de datos
           await newUser.save();
         
-          res.status(201).json({ message: 'Usuario registrado exitosamente' });
+          res.status(201).json({ message: 'Usuario registrado exitosamente', userId: newUser._id });
         } catch (error) {
           console.error('Error al registrar usuario:', error);
           res.status(500).json({ message: 'Error interno del servidor' });
