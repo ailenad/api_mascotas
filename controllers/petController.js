@@ -6,9 +6,9 @@ exports.crearMascota = async(req, res)=>{
       if (!name || !raza) {
         return res.status(400).json({ msg: 'Los campos name y raza son obligatorios' });
       }
-      if (typeof age !== 'number') {
-        return res.status(400).json({ msg: 'El campo age debe ser un número' });
-      }
+      // if (typeof age !== 'number') {
+      //   return res.status(400).json({ msg: 'El campo age debe ser un número' });
+      // }
       const userId = req.usuario;
       console.log(userId);
 
