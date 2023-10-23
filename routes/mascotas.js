@@ -3,12 +3,12 @@ const router = express.Router();
 const verificarToken = require('../middleware/verificarToken');
 const petController = require('../controllers/petController');
 //Crear mascota
- router.use(verificarToken);
+//  router.use(verificarToken);
 
-router.post('/registro',verificarToken, petController.crearMascota);
-router.put('/:id',verificarToken,petController.modificarMascota);
-router.delete('/:id',verificarToken ,petController.eliminarMascota);
-router.get('/:id',verificarToken,petController.obtenerMascota);
-router.get('/',verificarToken,petController.listaMascotas);
+router.post('/registro',  petController.crearMascota);
+router.put('/:id', petController.modificarMascota);
+router.delete('/:id', petController.eliminarMascota);
+router.get('/:id', petController.obtenerMascota);
+router.get('/', petController.listaMascotas);
 
 module.exports = router;
