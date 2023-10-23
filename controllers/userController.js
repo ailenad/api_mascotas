@@ -1,5 +1,6 @@
 
 const userModel = require('../models/userModel');
+const petModel = require('../models/petModel');
 const bcrypt = require('bcrypt');
 const jwt = require ('jsonwebtoken');
 require('dotenv').config();
@@ -11,19 +12,20 @@ exports.authUser= async(req , res)=>{
     
     const usuario = await userModel.findOne({email});
     if(!usuario){
-        res.status(400).json({msg:'El usuario no existe'})
+      return res.status(400).json({msg:'El usuario no existe'})
     }
 
     
     const passwordValido = await bcrypt.compare( password, usuario.password );
     if (!passwordValido){
-        res.status(400).json({msg:'Password invalido'})
+        return res.status(400).json({msg:'Password invalido'})
     }
 
-    const token = jwt.sign({ usuario: usuario._id }, secretKey, { expiresIn: '1h' });
+    // const token = jwt.sign({ usuario: usuario._id }, secretKey, { expiresIn: '1h' });
     res.status(201).json({
         msg:'Autenticacion ok',
-        token
+        userId: usuario._id,
+        // token
     })
 }
 exports.crear = async( req, res ) => {
@@ -127,19 +129,24 @@ exports.listar = async (req, res) => {
   };
 
 exports.obtenerUsuario = async (req, res) => {
-    try {
-      const userId = req.params.id;
-      const usuario = await userModel.findById(userId);
-  
-      if (!usuario) {
-        return res.status(404).json({ msg: 'El usuario no existe' });
-      }
-  
-      res.json(usuario);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ msg: 'Error en el servidor' });
+  try {
+    const userId = req.params.id;
+    const usuario = await userModel.findById(userId);
+
+    if (!usuario) {
+      return res.status(404).json({ msg: 'El usuario no existe' });
     }
-  };
+
+    const mascotas = await petModel.find({owner:userId});
+
+    res.json({
+      usuario, mascotas
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: 'Error en el servidor' });
+  }
+
+};
   
   
