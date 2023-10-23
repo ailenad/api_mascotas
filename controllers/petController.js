@@ -2,7 +2,7 @@ const petModel = require("../models/petModel");
 
 exports.crearMascota = async(req, res)=>{
     try{
-      const{name, raza, age, description} = req.body;
+      const{name, raza, age, img, type, owner, description} = req.body;
       if (!name || !raza) {
         return res.status(400).json({ msg: 'Los campos name y raza son obligatorios' });
       }
@@ -15,9 +15,11 @@ exports.crearMascota = async(req, res)=>{
       const mascota = new petModel({
         name, 
         raza,
+        type,
         age,
         description,
-        owner: userId,
+        img,
+        owner,
       });
       
       await mascota.save();

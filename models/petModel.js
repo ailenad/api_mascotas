@@ -11,8 +11,13 @@ const petSchema = new Schema ({
         type: String,
         required: true,
     },
+    type: {
+        type: String,
+        required: true,
+    },
     age:String,
     description:String,
+    img: String,
     created: {
         type: Date,
         default: Date.now 
